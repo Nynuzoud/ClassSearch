@@ -46,6 +46,8 @@ public class Service implements ISearcher {
             if (key.startsWith(prefix) && i < results.length) {
                 results[i] = key;
                 i++;
+            } else {
+                break;
             }
         }
 
