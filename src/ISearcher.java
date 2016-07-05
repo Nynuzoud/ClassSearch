@@ -5,7 +5,7 @@ public interface ISearcher {
      * @param modificationDates дата модификации класса в формате мс,
     прошедших с 1 января 1970 года
      */
-    public void refresh(String[] classNames, long[] modificationDates);
+    void refresh(String[] classNames, long[] modificationDates);
     /**
      * Ищет подходящие имена классов
      * Название должно начинаться с start
@@ -13,5 +13,5 @@ public interface ISearcher {
      * @return массив длины от 0 до 12, имена классов, упорядоченный по дате
     модификации и лексиграфически.
      */
-    public String[] guess(String start);
+    String[] guess(String start);
 }

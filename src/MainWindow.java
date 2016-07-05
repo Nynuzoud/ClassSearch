@@ -35,7 +35,10 @@ public class MainWindow extends JFrame {
         textField1.addActionListener(e -> {
             textToFind = textField1.getText();
             if (textToFind != null) {
+                long startSearchTime = System.currentTimeMillis();
                 list1.setListData(inputData.startSearch(textToFind));
+                long endSearchTime = System.currentTimeMillis();
+                System.out.println("Searching time: " + (endSearchTime - startSearchTime));
             }
         });
     }

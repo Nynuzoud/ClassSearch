@@ -1,14 +1,13 @@
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class DataContainer {
-    public static Map<String, Long> getClassMap() {
+    public static LinkedHashMap<String, Long> getClassMap() {
         return classMap;
     }
 
-    public static void setClassMap(Map<String, Long> classMap) {
+    public static void setClassMap(LinkedHashMap<String, Long> classMap) {
         DataContainer.classMap = classMap;
     }
 
-    private static Map<String, Long> classMap = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Long> classMap = new LinkedHashMap<>();
 }

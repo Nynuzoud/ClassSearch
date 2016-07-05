@@ -28,7 +28,7 @@ public class Service implements ISearcher {
                     return compareResult;
                 }
             };
-            Map<String, Long> sortedMap = map.entrySet().stream()
+            LinkedHashMap<String, Long> sortedMap = map.entrySet().stream()
                     .sorted(comparator)
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                             (e1, e2) -> e1, LinkedHashMap::new));
@@ -41,13 +41,20 @@ public class Service implements ISearcher {
 
     @Override
     public String[] guess(String start) {
-        //return (String[]) sortedMap.keySet().toArray(new String[sortedMap.size()]);
-        return DataContainer.getClassMap().keySet().toArray(new String[DataContainer.getClassMap().size()]);
-        //return new String[0];
+        return getArrayByPrefix(DataContainer.getClassMap(), start);
     }
 
     private String[] getArrayByPrefix (LinkedHashMap<String, Long> map, String prefix) {
-        String[] result = null;
+        String[] results = new String[12];
 
+        int i = 0;
+        for (String key : map.keySet()) {
+            if (key.startsWith(prefix) && i < results.length) {
+                results[i] = key;
+                i++;
+            }
+        }
+
+        return results;
     }
 }
