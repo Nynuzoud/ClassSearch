@@ -7,6 +7,7 @@ public class InputData {
         this.service = service;
     }
 
+    //creating classes
     public void setDataToService() {
 
         int classCount = 100000;
