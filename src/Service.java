@@ -7,7 +7,7 @@ public class Service implements ISearcher {
     public void refresh(String[] classNames, long[] modificationDates) {
         long startIndexingTime = System.currentTimeMillis();
 
-        HashMap<String, Long> map = new HashMap<>();
+        TreeMap<String, Long> map = new TreeMap<>();
 
         int classNamesLength = classNames.length;
         int modificationDatesLength = modificationDates.length;
@@ -19,13 +19,7 @@ public class Service implements ISearcher {
                 map.put(classNames[i], modificationDates[i]);
             }
 
-            //sorting data in map and collect it to linkedHashMap to save sort order
-            LinkedHashMap<String, Long> sortedMap = map.entrySet().stream()
-                    .sorted(comparator())
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (e1, e2) -> e1, LinkedHashMap::new));
-
-            DataContainer.setClassMap(sortedMap);
+            DataContainer.setTreeMap(map);
 
             long endIndexingTime = System.currentTimeMillis();
             System.out.println("Indexing time: " + (endIndexingTime - startIndexingTime));
@@ -35,21 +29,21 @@ public class Service implements ISearcher {
     @Override
     public String[] guess(String start) {
         //searching classes with the same prefix and return string array
-        return getArrayByPrefix(DataContainer.getClassMap(), start);
+        return getArrayByPrefix(DataContainer.getTreeMap(), start);
     }
 
-    private String[] getArrayByPrefix (LinkedHashMap<String, Long> map, String prefix) {
+    private String[] getArrayByPrefix (TreeMap<String, Long> treeMap, String prefix) {
         String[] results = new String[12];
 
-        int i = 0;
-        for (String key : map.keySet()) {
-            if (key.startsWith(prefix) && i < results.length) {
-                results[i] = key;
-                i++;
-            } else {
-                break;
-            }
-        }
+        Map<String, Long> subMap = treeMap.subMap(prefix, prefix + Character.MAX_VALUE);
+
+        ArrayList<String> arrayList = subMap.entrySet().stream()
+                .sorted(comparator())
+                .limit(12)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toCollection(ArrayList<String>::new));
+
+        results = arrayList.toArray(results);
 
         return results;
     }

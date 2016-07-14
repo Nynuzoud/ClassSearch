@@ -1,13 +1,14 @@
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public class DataContainer {
-    public static LinkedHashMap<String, Long> getClassMap() {
-        return classMap;
+
+    private static TreeMap<String, Long> treeMap;
+
+    public static void setTreeMap(TreeMap<String, Long> treeMap) {
+        DataContainer.treeMap = treeMap;
     }
 
-    public static void setClassMap(LinkedHashMap<String, Long> classMap) {
-        DataContainer.classMap = classMap;
+    public static TreeMap<String, Long> getTreeMap() {
+        return treeMap;
     }
-
-    private static LinkedHashMap<String, Long> classMap = new LinkedHashMap<>();
 }

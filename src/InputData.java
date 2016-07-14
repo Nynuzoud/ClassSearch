@@ -21,7 +21,7 @@ public class InputData {
 
         for (int i = 0; i < classNames.length; i++) {
             classNames[i] = testClassMainName + i + testClassExtension;
-            modificationDates[i] = currentMillisCountAgo + i;
+            modificationDates[i] = currentMillisCountAgo;
         }
 
         service.refresh(classNames, modificationDates);
